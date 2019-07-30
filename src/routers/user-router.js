@@ -6,7 +6,8 @@ const sharp = require('sharp');
 const User = require('../models/user');
 const router = new express.Router();
 const auth = require('../middleware/auth');
-
+const {sendWelcomeEmail} = require('../emails/account');
+const {sendGoodbyeEmail} = require('../emails/account');
 const upload = multer({
   limits: {
     fileSize: 1000000
@@ -24,6 +25,7 @@ router.post('/users', async (req, res) => {
   const user = new User(req.body);
   try {
     await user.save();
+    sendWelcomeEmail(user.email, user.name);
     const token = await user.generateAuthToken();
     res.status(201).send({user, token});
   } catch (err) {
@@ -110,10 +112,12 @@ router.patch('/users/me', auth, async (req, res) => {
 
 router.delete('/users/me', auth, async (req, res) => {
   try {
+    sendGoodbyeEmail(req.user.email, req.user.name);
     await req.user.remove();
     res.send(req.user);
   } catch(err) {
     res.status(500).send();
+    console.log(err.message);
   }
 });
 
