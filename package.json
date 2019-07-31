@@ -5,8 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
-    "test": "jest"
+    "dev": "env-cmd -f ./config/dev.env nodemon src/index.js",
+    "test": "env-cmd -f ./config/test.env jest --watch"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "author": "Josy",
   "license": "ISC",
@@ -24,6 +27,7 @@
   },
   "devDependencies": {
     "jest": "^24.8.0",
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "supertest": "^4.0.2"
   }
 }

@@ -1,6 +1,5 @@
 // jshint esversion:6
 
-require('dotenv').config();
 const mongoose = require('mongoose');
 const validator = require('validator');
 
