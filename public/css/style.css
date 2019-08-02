@@ -111,6 +111,10 @@ h1 {
   z-index: 1;
 }
 
+.h1{
+  font-size: 2rem;
+}
+
 form {
   z-index: 1;
   text-align: -webkit-center;
@@ -140,11 +144,12 @@ form {
   width: 220px;
   border-radius: 5px;
   font-size: 1.1rem;
+  width: 250px;
 }
 
 .form-signin {
   width: 100%;
-  max-width: 330px;
+  max-width: 360px;
   padding: 15px;
   margin: auto;
   z-index: 1;
@@ -166,8 +171,9 @@ form {
 .form-signin input[type="email"] {
   margin-bottom: 15px;
   border-radius: 5px;
-    border-color: transparent;
+  border-color: transparent;
   z-index: 1;
+  width: 250px;
 }
 
 .form-signin input[type="password"] {
@@ -175,6 +181,7 @@ form {
   border-radius: 5px;
   border-color: transparent;
   z-index: 1;
+  width: 250px;
 }
 
 footer {

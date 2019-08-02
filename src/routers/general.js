@@ -8,8 +8,10 @@ router.get('/', (req,res) => {
   res.render('index');
 });
 
-router.get('/login', (req,res) => {
-  res.render('login');
+router.get('/users/login', (req,res) => {
+  res.render('login', {
+    log: 'Sign In'
+  });
 });
 
 router.get('*', (req, res) => {

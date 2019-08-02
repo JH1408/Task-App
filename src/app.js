@@ -3,6 +3,7 @@ require('dotenv').config({path: './config/dev.env'});
 const express = require('express');
 const path = require('path');
 const hbs = require('hbs');
+const bodyParser = require('body-parser');
 require('./db/mongoose');
 const User = require('./models/user');
 const Task = require('./models/task');
@@ -17,6 +18,9 @@ app.use(userRouter);
 app.use(taskRouter);
 app.use(generalRouter);
 app.use(express.static(path.join(__dirname, '../public')));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, '../views'));
 hbs.registerPartials(path.join(__dirname, '../views/partials'));

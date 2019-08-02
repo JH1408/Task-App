@@ -1,12 +1,12 @@
 {{> head }}
 {{> header }}
 
-    <form class="form-signin">
-      <h1 class="">Please sign in</h1>
+    <form class="form-signin" action="/users/login" method="post">
+      <h1 class="h1">Sign in to your account</h1>
       <label for="inputEmail" class="sr-only">Email address</label>
-      <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+      <input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="email" required autofocus>
       <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+      <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
       <button class="signin btn" type="submit">Sign In</button>
     </form>
 
