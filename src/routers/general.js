@@ -12,6 +12,10 @@ router.get('/users/login', (req,res) => {
   res.render('login');
 });
 
+router.get('/users', (req,res) => {
+  res.render('register');
+});
+
 router.get('*', (req, res) => {
   res.render('404');
 });

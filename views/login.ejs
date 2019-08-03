@@ -1,5 +1,5 @@
-{{> head }}
-{{> header }}
+<%- include("./partials/head") -%>
+<%- include("./partials/header") -%>
 
     <form class="form-signin" action="/users/login" method="post">
       <h1 class="h1">Sign in to your account</h1>
@@ -10,4 +10,4 @@
       <button class="signin btn" type="submit">Sign In</button>
     </form>
 
-{{> footer }}
+<%- include("./partials/footer") -%>

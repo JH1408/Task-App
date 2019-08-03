@@ -23,9 +23,9 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(cookieParser());
-app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, '../views'));
-hbs.registerPartials(path.join(__dirname, '../views/partials'));
+app.set('view engine', 'ejs');
+
 
 
 module.exports = app;

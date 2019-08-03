@@ -1,0 +1,40 @@
+<%- include("./partials/head") -%>
+<%- include("./partials/header") -%>
+
+<div class="signup__container">
+  <div class="container__child signup__thumbnail">
+    <div class="thumbnail__content text-center">
+      <h1 class="heading--primary">Task App</h1>
+    </div>
+    <div class="signup__overlay"></div>
+  </div>
+  <div class="container__child signup__form">
+    <form action="/users" method="post">
+      <div class="form-group">
+        <label for="username">Name</label>
+        <input class="form-control" type="text" name="username" id="username" placeholder="Your name" required />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input class="form-control" type="text" name="email" id="email" placeholder="Your email" required />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input class="form-control" type="password" name="password" id="password" placeholder="********" required />
+      </div>
+      <div class="form-group">
+        <label for="passwordRepeat">Repeat Password</label>
+        <input class="form-control" type="password" name="passwordRepeat" id="passwordRepeat" placeholder="********" required />
+      </div>
+      <div class="m-t-lg">
+        <ul class="list-inline">
+          <li>
+            <input class="btn btn--form" type="submit" value="Register" />
+          </li>
+        </ul>
+      </div>
+    </form>
+  </div>
+</div>
+
+<%- include("./partials/footer") -%>
