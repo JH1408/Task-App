@@ -9,9 +9,7 @@ router.get('/', (req,res) => {
 });
 
 router.get('/users/login', (req,res) => {
-  res.render('login', {
-    log: 'Sign In'
-  });
+  res.render('login');
 });
 
 router.get('*', (req, res) => {

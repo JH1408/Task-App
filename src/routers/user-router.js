@@ -4,6 +4,7 @@ const express = require('express');
 const multer = require('multer');
 const sharp = require('sharp');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const User = require('../models/user');
 const router = new express.Router();
 const auth = require('../middleware/auth');
@@ -27,9 +28,10 @@ router.post('/users', async (req, res) => {
   const user = new User(req.body);
   try {
     await user.save();
-    sendWelcomeEmail(user.email, user.name);
+//  sendWelcomeEmail(user.email, user.name);
     const token = await user.generateAuthToken();
-    res.status(201).send({user, token});
+    res.cookie('auth_token', token);
+    res.redirect('/tasks');
   } catch (err) {
     res.status(400).send(err);
   }
@@ -39,7 +41,7 @@ router.post('/users/login', urlencodedParser, async (req, res) => {
   try {
     const user = await User.findByCredentials(req.body.email, req.body.password);
     const token = await user.generateAuthToken();
-
+    res.cookie('auth_token', token);
     res.redirect('/tasks');
   } catch(err) {
     res.status(400).send();
