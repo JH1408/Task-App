@@ -8,8 +8,8 @@ const cookieParser = require('cookie-parser');
 const User = require('../models/user');
 const router = new express.Router();
 const auth = require('../middleware/auth');
-const {sendWelcomeEmail} = require('../emails/account');
-const {sendGoodbyeEmail} = require('../emails/account');
+const {sendWelcomeEmail} = require('../utils/account');
+const {sendGoodbyeEmail} = require('../utils/account');
 const upload = multer({
   limits: {
     fileSize: 1000000

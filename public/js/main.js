@@ -138,3 +138,20 @@ $(document).ready(() => {
         debug: true
       });
     });
+
+// add new tasks
+item.addEventListener('submit', (e) => {
+  e.preventDefault();
+  fetch('/tasks', {
+    method: 'post',
+    headers: {
+    'Content-Type': 'application/json'
+  },
+    body: JSON.stringify({
+      description: document.querySelector('input').value,
+      completed: false
+    })
+  }).then((response) => {
+    console.log(response);
+  });
+});

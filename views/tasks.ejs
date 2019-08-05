@@ -7,14 +7,14 @@
     </div>
     <div class="box">
       <% tasks.forEach(function(task) { %>
-          <div class="item"><%= tasks %>
+          <div class="item">
             <!-- <i class="far fa-square unchecked"> -->
             <p><%= task.description %></p>
           </div>
       <% }); %>
-      <form class="item" action="/" method="post">
-        <input class="newTask" type="text" name="newItem" placeholder="New Item" autocomplete="off" required>
-        <button class="addTask" type="submit" name="list">+</button>
+      <form class="item" action="/tasks" method="post">
+        <input class="newTask" type="text" name="newTask" placeholder="New Task" autocomplete="off" required>
+        <button class="addTask" type="submit">+</button>
       </form>
     </div>
   </div>

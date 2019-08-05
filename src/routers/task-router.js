@@ -8,12 +8,12 @@ const date = require('../utils/date');
 
 router.post('/tasks', auth, async (req, res) => {
   const task = new Task({
-    ...req.body,
+    description: req.body.newTask,
     author: req.user._id
   });
   try {
     await task.save();
-    res.status(201).send(task);
+    res.status(201).redirect('tasks');
   } catch (err) {
     res.status(400).send(err);
   }
@@ -26,12 +26,6 @@ router.post('/tasks', auth, async (req, res) => {
  router.get('/tasks', auth, async (req, res) => {
    const match = {};
    const sort = {};
-   if(!req.user.tasks){
-     res.render('tasks', {
-         tasks: ['Create your first task!'],
-         date: date.getDate()
-     });
-   } else {
      if(req.query.completed) {
        match.completed = req.query.completed === 'true';
      }
@@ -56,7 +50,6 @@ router.post('/tasks', auth, async (req, res) => {
      } catch(err) {
        res.status(500).send();
      }
-   }
  });
 
 
