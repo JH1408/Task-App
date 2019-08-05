@@ -234,6 +234,20 @@ label {
   &:focus {border-color: #111;}
 }
 
+h2, h3 {
+  color: var(--darkblue);
+  text-align: center;
+}
+
+h2 {
+  padding-top: 20px;
+}
+
+.account {
+  top: 30px;
+  height: 670px;
+}
+
 .tasks {
   background-image: -webkit-linear-gradient(65deg, var(--lightblue) 50%, var(--darkblue) 50%);
   width: 100%;

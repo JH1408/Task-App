@@ -17,16 +17,6 @@ window.onload = function() {
 //   });
 // };
 
-// display photo
-$(document).ready(() => {
-  $.getJSON('/users/me', (res) => {
-    const id = res.user._id;
-    $.getJSON(`/users/{id}/avatar`, (res) => {
-      $('.user-photo').attr('src', res.user.avatar);
-    });
-  });
-});
-
 // validation for registration
 $(document).ready(() => {
     $('.register-form').validate({
@@ -84,16 +74,6 @@ $(document).ready(() => {
       });
     });
 
-$('.save-data').on('click', (e) => {
-  e.preventDefault();
-  fetch('/users/me', {
-    method: 'PATCH',
-    body: JSON.stringify({
-      name: req.body.name,
-      email: req.body.email
-    })
-  });
-});
 
 // change password
 $.validator.addMethod("alphanumeric", function(value, element) {
