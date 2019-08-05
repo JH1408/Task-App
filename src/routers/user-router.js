@@ -81,8 +81,8 @@ router.post('/users/me/avatar', auth, upload.single('avatar'), async (req,res) =
 
 router.get('/users/me', auth, async (req, res) => {
   res.render('user', {
-    name: user.req.name,
-    email: user.req.email,
+    name: req.user.name,
+    email: req.user.email,
   });
 });
 

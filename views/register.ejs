@@ -1,40 +1,20 @@
 <%- include("./partials/head") -%>
 <%- include("./partials/header") -%>
 
-<div class="signup__container">
-  <div class="container__child signup__thumbnail">
-    <div class="thumbnail__content text-center">
-      <h1 class="heading--primary">Task App</h1>
-    </div>
-    <div class="signup__overlay"></div>
-  </div>
-  <div class="container__child signup__form">
-    <form action="/users" method="post">
-      <div class="form-group">
+<div class="signup-container register-container">
+    <form action="/users" method="post" class="form-signin register-form">
+        <h1 class="h1">Create an account</h1>
         <label for="username">Name</label>
-        <input class="form-control" type="text" name="username" id="username" placeholder="Your name" required />
-      </div>
-      <div class="form-group">
+        <input class="form-control" type="text" name="name" id="username" placeholder="John Doe" required />
         <label for="email">Email</label>
-        <input class="form-control" type="text" name="email" id="email" placeholder="Your email" required />
-      </div>
-      <div class="form-group">
+        <input class="form-control" type="text" name="email" id="email" placeholder="name@example.com" required />
         <label for="password">Password</label>
-        <input class="form-control" type="password" name="password" id="password" placeholder="********" required />
-      </div>
-      <div class="form-group">
-        <label for="passwordRepeat">Repeat Password</label>
-        <input class="form-control" type="password" name="passwordRepeat" id="passwordRepeat" placeholder="********" required />
-      </div>
-      <div class="m-t-lg">
-        <ul class="list-inline">
-          <li>
-            <input class="btn btn--form" type="submit" value="Register" />
-          </li>
-        </ul>
-      </div>
+        <input class="form-control" type="password" name="newPassword" id="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" required />
+        <label for="passwordRepeat">Confirm Password</label>
+        <input class="form-control" type="password" name="confirmPasswordt" id="passwordRepeat" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" required />
+        <button class="signin btn register" type="submit">Register</button>
     </form>
   </div>
-</div>
+
 
 <%- include("./partials/footer") -%>

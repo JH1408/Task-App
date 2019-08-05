@@ -9,13 +9,13 @@ window.onload = function() {
   });
 };
 
-window.onload = function() {
-  Particles.init({
-    selector: '.container__child signup__thumbnail',
-    connectParticles: true,
-    color: '#f53676'
-  });
-};
+// window.onload = function() {
+//   Particles.init({
+//     selector: '.container__child signup__thumbnail',
+//     connectParticles: true,
+//     color: '#f53676'
+//   });
+// };
 
 // display photo
 $(document).ready(() => {
@@ -27,6 +27,43 @@ $(document).ready(() => {
   });
 });
 
+// validation for registration
+$(document).ready(() => {
+    $('.register-form').validate({
+        rules: {
+          email: {
+              required: true,
+              email: true,
+          },
+            newPassword: {
+                required: true,
+                password: true,
+                minlength: 7,
+                alphanumeric: true
+            },
+            confirmPassword: {
+                required: true,
+                password: true,
+                minlength: 7,
+                equalTo: '.newPassword'
+            }
+        },
+        messages: {
+            newPassword: {
+              required: "Please enter a password.",
+              password: "Your password must be at least 7 characters and contain numbers and letters."
+            },
+            confirmPassword: {
+              equalTo: "Passwords must match."
+            },
+            email: {
+              required: "Please enter a valid email address.",
+              email: "Please enter a valid email address."
+            }
+        },
+        debug: true
+      });
+    });
 
 // change user data
 $(document).ready(() => {

@@ -3,13 +3,13 @@
 
   <div class="tasks">
     <div class="box" id="heading">
-      <h1>Tasks</h1>
+      <h1><%= date %></h1>
     </div>
     <div class="box">
-      <% newListItems.forEach(function(newListItem) { %>
-          <div class="item">
-            <i class="far fa-square unchecked">
-            <p><%= newListItem.name %></p>
+      <% tasks.forEach(function(task) { %>
+          <div class="item"><%= tasks %>
+            <!-- <i class="far fa-square unchecked"> -->
+            <p><%= task.description %></p>
           </div>
       <% }); %>
       <form class="item" action="/" method="post">

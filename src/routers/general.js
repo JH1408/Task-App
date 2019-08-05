@@ -1,7 +1,6 @@
 // jshint esversion: 9
 
 const express = require('express');
-const hbs = require('hbs');
 const router = new express.Router();
 
 router.get('/', (req,res) => {
@@ -12,7 +11,7 @@ router.get('/users/login', (req,res) => {
   res.render('login');
 });
 
-router.get('/users', (req,res) => {
+router.get('/users/register', (req,res) => {
   res.render('register');
 });
 
