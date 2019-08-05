@@ -1,4 +1,4 @@
-<% include("./partials/head") %>
+<%- include("./partials/head") -%>
 <%- include("./partials/header") -%>
 
   <div class="tasks">
@@ -6,15 +6,17 @@
       <h1>Tasks</h1>
     </div>
     <div class="box">
+      <% newListItems.forEach(function(newListItem) { %>
           <div class="item">
             <i class="far fa-square unchecked">
-            <p>Test</p>
+            <p><%= newListItem.name %></p>
           </div>
+      <% }); %>
       <form class="item" action="/" method="post">
         <input class="newTask" type="text" name="newItem" placeholder="New Item" autocomplete="off" required>
         <button class="addTask" type="submit" name="list">+</button>
       </form>
     </div>
   </div>
-  
+
 <%- include("./partials/footer") -%>
