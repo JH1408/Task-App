@@ -2,23 +2,23 @@
 <%- include("./partials/header") -%>
 
 <div class="login-container account">
-  <h2>YOUR ACCOUNT</h2>
+  <h2 class="account-heading">YOUR ACCOUNT</h2>
   <div class="">
     <img class="user-photo" src="">
   </div>
   <div class="">
     <form class="data-form form-signin">
       <label for="name">Name</label>
-      <input type="text" name="name" value="<%= name %>" class="form-control" required>
+      <input type="text" name="name" value="<%= name %>" class="form-control name" required>
       <label for="email">Email address</label>
-      <input name="email" value="<%= email %>" class="form-control" required>
+      <input name="email" value="<%= email %>" class="form-control email" required>
       <button type="submit" class="save-data signin btn">Save changes</button>
     </form>
     <div class="">
       <h3>Change your password</h3>
       <form class="password-form form-signin">
         <label for="">New password</label>
-        <input name="newPassword" class="form-control" required placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
+        <input name="newPassword" class="form-control new-password" required placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
         <label for="">Confirm password</label>
         <input name="confirmPassword" class="form-control" required placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
         <button type="submit" class="save-password signin btn">Save password</button>

@@ -7,9 +7,12 @@
     </div>
     <div class="box">
       <% tasks.forEach(function(task) { %>
-          <div class="item task">
-            <!-- <i class="far fa-square unchecked"> -->
-            <p><%= task.description %></p>
+          <div class="item">
+            <form class="task" >
+              <i class="far fa-square unchecked">
+              <input type="text" class="edit-task" value="<%= task.description %>">
+              <button type="submit" style="visibility: hidden"></button>
+            </form>
           </div>
       <% }); %>
       <form class="item newItem">

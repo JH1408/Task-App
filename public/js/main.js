@@ -15,6 +15,12 @@ $(document).ready(function() {
   }
 });
 
+// logout
+$(document).ready(function() {
+  if($('.signup-btn').text() == 'Sign Out') {
+    $('.signup-btn').attr('type', 'submit');
+    }
+});
 
 // validation for registration
 $.validator.addMethod("alphanumeric", function(value, element) {
@@ -83,6 +89,21 @@ $(document).ready(function($) {
     });
     });
 
+  $('.data-form').on('submit', (e) => {
+    e.preventDefault();
+    fetch('/users/me', {
+      method: 'PATCH',
+      headers: {
+      'Content-Type': 'application/json'
+    },
+      body: JSON.stringify({
+        name: $('.name').val(),
+        email: $('.email').val(),
+      })
+    }).then((response) => {
+        $('h2').after('<p class="incorrect center">Account successfully updated!</p>');
+    });
+  });
 
 // change password
 $(document).ready(function($) {
@@ -113,6 +134,22 @@ $(document).ready(function($) {
       });
     });
 
+$('.password-form').on('submit', (e) => {
+  e.preventDefault();
+  fetch('/users/me', {
+    method: 'PATCH',
+    headers: {
+    'Content-Type': 'application/json'
+  },
+    body: JSON.stringify({
+      password: $('.new-password').val(),
+    })
+  }).then((response) => {
+      $('h3').after('<p class="incorrect center">Password successfully updated!</p>');
+      $('.password-form input').val('');
+  });
+});
+
 // add new tasks
 $('.newItem').on('submit', (e) => {
   e.preventDefault();
@@ -122,11 +159,34 @@ $('.newItem').on('submit', (e) => {
     'Content-Type': 'application/json'
   },
     body: JSON.stringify({
-      description: $('input').val(),
+      description: $('.newTask').val(),
       completed: false
     })
   }).then((response) => {
-      $('.newItem').before(`<div class="item"><p>${$('input').val()}</p></div>`);
-      $('input').val('');
+      $('.newItem').before(`<div class="item">
+        <form class="task" >
+          <i class="far fa-square unchecked">
+          <input type="text" class="edit-task" value="${$('.newTask').val()}">
+          <button type="submit" style="visibility: hidden"></button>
+        </form>
+      </div>`);
+      $('.newTask').val('');
+  });
+});
+
+// edit task
+$('.task').on('submit', (e) => {
+  e.preventDefault();
+  fetch('/tasks', {
+    method: 'PATCH',
+    headers: {
+    'Content-Type': 'application/json'
+  },
+    body: JSON.stringify({
+      description: $('.edit-task').val(),
+      completed: false
+    })
+  }).then((response) => {
+    console.log(response);
   });
 });

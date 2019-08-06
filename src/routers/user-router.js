@@ -66,9 +66,15 @@ router.post('/users/logout', auth, async (req, res) => {
       return token.token !== req.token;
     });
     await req.user.save();
-    res.send();
+    res.clearCookie('auth_token');
+    res.render('index', {
+      btnOne: 'Sign In',
+      btnOneLink: '/users/login',
+      btnTwo: 'Sign Up',
+      btnTwoLink: '/users/register'
+    });
   } catch(err) {
-    res.status(500).send();
+    res.status(500).send(err);
   }
 });
 
@@ -92,6 +98,7 @@ router.post('/users/me/avatar', auth, upload.single('avatar'), async (req,res) =
 });
 
 router.get('/users/me', auth, async (req, res) => {
+  console.log(req.user);
   res.render('user', {
     name: req.user.name,
     email: req.user.email,

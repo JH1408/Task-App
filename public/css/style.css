@@ -166,6 +166,12 @@ form {
   text-align: left;
 }
 
+.center {
+  text-align: center;
+  margin: auto;
+  color: var(--pink);
+}
+
 .message {
   padding-bottom: 20px;
 }
@@ -272,7 +278,10 @@ h2 {
 
 .account {
   top: 30px;
-  height: 670px;
+  height: 685px;
+}
+.account-heading {
+  padding-top: 40px;
 }
 
 .tasks {
@@ -296,6 +305,10 @@ h2 {
   text-align: center;
 }
 
+.task {
+  padding-left: 30px;
+}
+
 .item {
   min-height: 70px;
   display: flex;
@@ -313,13 +326,13 @@ input:checked+p {
   text-decoration-color: var(--darkblue);
 }
 
-
-p {
+.edit-task {
   margin: 0;
   padding: 20px;
   font-size: 20px;
   font-weight: 200;
   color: #00204a;
+  border: none;
 }
 
 form.item {
