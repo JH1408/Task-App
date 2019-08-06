@@ -2,20 +2,43 @@
 
 const express = require('express');
 const router = new express.Router();
+const auth = require('../middleware/auth');
 
 router.get('/', (req,res) => {
-  res.render('index');
+  if(req.cookies.auth_token) {
+    res.render('index', {
+      btnOne: 'Account',
+      btnOneLink: '/users/me',
+      btnTwo: 'Sign Out',
+      btnTwoLink: '',
+    });
+  } else {
+    res.render('index', {
+      btnOne: 'Sign In',
+      btnOneLink: '/users/login',
+      btnTwo: 'Sign Up',
+      btnTwoLink: '/users/register'
+    });
+  }
 });
 
 router.get('/users/login', (req,res) => {
   res.render('login', {
-    message: ''
+    message: '',
+    btnOne: 'Sign In',
+    btnOneLink: '/users/login',
+    btnTwo: 'Sign Up',
+    btnTwoLink: '/users/register'
   });
 });
 
 router.get('/users/register', (req,res) => {
   res.render('register', {
-    message: ''
+    message: '',
+    btnOne: 'Sign In',
+    btnOneLink: '/users/login',
+    btnTwo: 'Sign Up',
+    btnTwoLink: '/users/register'
   });
 });
 

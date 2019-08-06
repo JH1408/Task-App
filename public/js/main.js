@@ -10,12 +10,17 @@ window.onload = function() {
 };
 
 $(document).ready(function() {
-  if($('.incorrect').text() === '') {
-    $('.incorrect').remove();
+  if($('h2').text() == 'YOUR ACCOUNT') {
+    $('.hero').addClass('user-bg');
   }
 });
 
+
 // validation for registration
+$.validator.addMethod("alphanumeric", function(value, element) {
+	return this.optional(element) || /^\w+$/i.test(value);
+}, "Letters, numbers, and underscores only please");
+
 $(document).ready(function ($) {
     $('.register-form').validate({
         rules: {
@@ -60,9 +65,8 @@ $(document).ready(function ($) {
     });
 });
 
-
 // change user data
-$(document).ready(() => {
+$(document).ready(function($) {
     $('.data-form').validate({
         rules: {
             email: {
@@ -81,21 +85,7 @@ $(document).ready(() => {
 
 
 // change password
-$.validator.addMethod("alphanumeric", function(value, element) {
-	return this.optional(element) || /^\w+$/i.test(value);
-}, "Letters, numbers, and underscores only please");
-
-$('.save-password').on('click', (e) => {
-  e.preventDefault();
-  fetch('/users/me', {
-    method: 'PATCH',
-    body: JSON.stringify({
-      password: req.body.newPassword
-    })
-  });
-});
-
-$(document).ready(() => {
+$(document).ready(function($) {
     $('.password-form').validate({
         rules: {
             newPassword: {
@@ -124,18 +114,19 @@ $(document).ready(() => {
     });
 
 // add new tasks
-item.addEventListener('submit', (e) => {
+$('.newItem').on('submit', (e) => {
   e.preventDefault();
   fetch('/tasks', {
-    method: 'post',
+    method: 'POST',
     headers: {
     'Content-Type': 'application/json'
   },
     body: JSON.stringify({
-      description: document.querySelector('input').value,
+      description: $('input').val(),
       completed: false
     })
   }).then((response) => {
-    console.log(response);
+      $('.newItem').before(`<div class="item"><p>${$('input').val()}</p></div>`);
+      $('input').val('');
   });
 });

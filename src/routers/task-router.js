@@ -8,7 +8,7 @@ const date = require('../utils/date');
 
 router.post('/tasks', auth, async (req, res) => {
   const task = new Task({
-    description: req.body.newTask,
+    description: req.body.description,
     author: req.user._id
   });
   try {
@@ -45,7 +45,11 @@ router.post('/tasks', auth, async (req, res) => {
        }).execPopulate();
        res.render('tasks', {
            tasks: req.user.tasks,
-           date: date.getDate()
+           date: date.getDate(),
+           btnOne: 'Account',
+           btnOneLink: '/users/me',
+           btnTwo: 'Sign Out',
+           btnTwoLink: ''
        });
      } catch(err) {
        res.status(500).send();

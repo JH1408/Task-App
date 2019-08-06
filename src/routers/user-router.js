@@ -34,7 +34,11 @@ router.post('/users', async (req, res) => {
     res.redirect('/tasks');
   } catch (err) {
     res.status(400).render('register', {
-      message: 'An account with that email address already exists.'
+      message: 'An account with that email address already exists.',
+      btnOne: 'Sign In',
+      btnOneLink: '/users/login',
+      btnTwo: 'Sign Up',
+      btnTwoLink: '/users/register'
     });
   }
 });
@@ -47,7 +51,11 @@ router.post('/users/login', urlencodedParser, async (req, res) => {
     res.redirect('/tasks');
   } catch(err) {
     res.status(400).render('login', {
-      message: 'Incorrect username or password.'
+      message: 'Incorrect username or password.',
+      btnOne: 'Sign In',
+      btnOneLink: '/users/login',
+      btnTwo: 'Sign Up',
+      btnTwoLink: '/users/register'
     });
   }
 });
@@ -87,6 +95,10 @@ router.get('/users/me', auth, async (req, res) => {
   res.render('user', {
     name: req.user.name,
     email: req.user.email,
+    btnOne: 'Tasks',
+    btnOneLink: '/tasks',
+    btnTwo: 'Sign Out',
+    btnTwoLink: '',
   });
 });
 
