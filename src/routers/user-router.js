@@ -33,7 +33,9 @@ router.post('/users', async (req, res) => {
     res.cookie('auth_token', token);
     res.redirect('/tasks');
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).render('register', {
+      message: 'An account with that email address already exists.'
+    });
   }
 });
 
@@ -44,7 +46,9 @@ router.post('/users/login', urlencodedParser, async (req, res) => {
     res.cookie('auth_token', token);
     res.redirect('/tasks');
   } catch(err) {
-    res.status(400).send();
+    res.status(400).render('login', {
+      message: 'Incorrect username or password.'
+    });
   }
 });
 

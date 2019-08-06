@@ -9,22 +9,24 @@ window.onload = function() {
   });
 };
 
-// window.onload = function() {
-//   Particles.init({
-//     selector: '.container__child signup__thumbnail',
-//     connectParticles: true,
-//     color: '#f53676'
-//   });
-// };
+$(document).ready(function() {
+  if($('.incorrect').text() === '') {
+    $('.incorrect').remove();
+  }
+});
 
 // validation for registration
-$(document).ready(() => {
+$(document).ready(function ($) {
     $('.register-form').validate({
         rules: {
-          email: {
-              required: true,
-              email: true,
-          },
+            name: {
+                required: true,
+                lettersonly: true
+            },
+            email: {
+                required: true,
+                email: true
+            },
             newPassword: {
                 required: true,
                 password: true,
@@ -39,6 +41,10 @@ $(document).ready(() => {
             }
         },
         messages: {
+            name: {
+                required: "Please enter your name",
+                lettersonly: "Name should contain only letters"
+            },
             newPassword: {
               required: "Please enter a password.",
               password: "Your password must be at least 7 characters and contain numbers and letters."
@@ -51,9 +57,9 @@ $(document).ready(() => {
               email: "Please enter a valid email address."
             }
         },
-        debug: true
-      });
     });
+});
+
 
 // change user data
 $(document).ready(() => {
@@ -70,8 +76,7 @@ $(document).ready(() => {
               email: "Please enter a valid email address."
             }
         },
-        debug: true
-      });
+    });
     });
 
 
@@ -115,7 +120,6 @@ $(document).ready(() => {
               equalTo: "Passwords must match."
             }
         },
-        debug: true
       });
     });
 

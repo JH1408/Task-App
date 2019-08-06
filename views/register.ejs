@@ -4,6 +4,7 @@
 <div class="signup-container register-container">
     <form action="/users" method="post" class="form-signin register-form">
         <h1 class="h1">Create an account</h1>
+        <p class="incorrect"><%= message %></p>
         <label for="username">Name</label>
         <input class="form-control" type="text" name="name" id="username" placeholder="John Doe" required />
         <label for="email">Email</label>
@@ -15,6 +16,6 @@
         <button class="signin btn register" type="submit">Register</button>
     </form>
   </div>
-
+  <canvas class="background"></canvas>
 
 <%- include("./partials/footer") -%>

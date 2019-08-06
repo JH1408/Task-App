@@ -8,11 +8,15 @@ router.get('/', (req,res) => {
 });
 
 router.get('/users/login', (req,res) => {
-  res.render('login');
+  res.render('login', {
+    message: ''
+  });
 });
 
 router.get('/users/register', (req,res) => {
-  res.render('register');
+  res.render('register', {
+    message: ''
+  });
 });
 
 router.get('*', (req, res) => {
