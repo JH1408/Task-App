@@ -202,3 +202,35 @@ $('.task').on('submit', (e) => {
     console.log(response);
   });
 });
+
+// check task
+$('.unchecked').on('click', (e) => {
+  e.preventDefault();
+  fetch(`/tasks/${$(e.target).find('.edit-task').data('id')}`, {
+    method: 'PATCH',
+    headers: {
+    'Content-Type': 'application/json'
+  },
+    body: JSON.stringify({
+      completed: true,
+    })
+  }).then((response) => {
+      $(e.target).removeClass('fa-square').addClass('fa-check-square checked').removeClass('unchecked');
+  });
+});
+
+// uncheck task
+$('.checked').on('click', (e) => {
+  e.preventDefault();
+  fetch(`/tasks/${$(e.target).find('.edit-task').data('id')}`, {
+    method: 'PATCH',
+    headers: {
+    'Content-Type': 'application/json'
+  },
+    body: JSON.stringify({
+      completed: false,
+    })
+  }).then((response) => {
+      $(e.target).removeClass('fa-checked-square').addClass('fa-square unchecked').removeClass('checked');
+  });
+});

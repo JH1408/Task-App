@@ -310,6 +310,10 @@ h2 {
   left: 0;
 }
 
+.unchecked, .checked {
+  cursor: pointer;
+}
+
 .box {
   max-width: 400px;
   margin: 50px auto;
