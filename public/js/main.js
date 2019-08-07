@@ -190,14 +190,13 @@ $('.newItem').on('submit', (e) => {
 // edit task
 $('.task').on('submit', (e) => {
   e.preventDefault();
-  fetch('/tasks', {
+  fetch(`/tasks/${$(e.target).find('.edit-task').data('id')}`, {
     method: 'PATCH',
     headers: {
     'Content-Type': 'application/json'
   },
     body: JSON.stringify({
-      description: $('.edit-task').val(),
-      completed: false
+      description: $(e.target).find('.edit-task').val(),
     })
   }).then((response) => {
     console.log(response);

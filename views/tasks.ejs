@@ -8,9 +8,9 @@
     <div class="box">
       <% tasks.forEach(function(task) { %>
           <div class="item">
-            <form class="task" >
+            <form class="task">
               <i class="far fa-square unchecked">
-              <input type="text" class="edit-task" value="<%= task.description %>">
+              <input type="text" class="edit-task" value="<%= task.description %>" data-id="<%= task._id %>">
               <button type="submit" style="visibility: hidden"></button>
             </form>
           </div>
