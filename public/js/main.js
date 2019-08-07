@@ -150,6 +150,19 @@ $('.password-form').on('submit', (e) => {
   });
 });
 
+// delete account
+$('.delete-account').on('submit', (e) => {
+  e.preventDefault();
+  fetch('/users/me', {
+    method: 'DELETE',
+    headers: {
+    'Content-Type': 'application/json'
+  }
+  }).then((response) => {
+    console.log(response);
+  });
+});
+
 // add new tasks
 $('.newItem').on('submit', (e) => {
   e.preventDefault();

@@ -25,7 +25,12 @@ const upload = multer({
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 router.post('/users', async (req, res) => {
-  const user = new User(req.body);
+
+  const user = new User({
+    name: req.body.name,
+    email: req.body.email,
+    password: req.body.newPassword
+  });
   try {
     await user.save();
 //  sendWelcomeEmail(user.email, user.name);
@@ -98,7 +103,6 @@ router.post('/users/me/avatar', auth, upload.single('avatar'), async (req,res) =
 });
 
 router.get('/users/me', auth, async (req, res) => {
-  console.log(req.user);
   res.render('user', {
     name: req.user.name,
     email: req.user.email,
@@ -142,9 +146,14 @@ router.patch('/users/me', auth, async (req, res) => {
 
 router.delete('/users/me', auth, async (req, res) => {
   try {
-    sendGoodbyeEmail(req.user.email, req.user.name);
+    //sendGoodbyeEmail(req.user.email, req.user.name);
     await req.user.remove();
-    res.send(req.user);
+    res.render('index', {
+      btnOne: 'Sign In',
+      btnOneLink: '/users/login',
+      btnTwo: 'Sign Up',
+      btnTwoLink: '/users/register'
+    });
   } catch(err) {
     res.status(500).send();
     console.log(err.message);
