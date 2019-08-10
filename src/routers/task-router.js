@@ -7,6 +7,7 @@ const auth = require('../middleware/auth');
 const date = require('../utils/date');
 
 router.post('/tasks', auth, async (req, res) => {
+  console.log(req);
   const task = new Task({
     description: req.body.description,
     author: req.user._id

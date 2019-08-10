@@ -17,7 +17,7 @@ body {
   --lightblue: #c7dbf2;
 }
 
-input:focus, button:focus {
+input:focus, button:focus, select:focus {
   outline: none;
 }
 
@@ -314,9 +314,14 @@ h2 {
   cursor: pointer;
 }
 
+.done {
+  text-decoration: line-through;
+  text-decoration-color: var(--lightblue);
+}
+
 .box {
   max-width: 400px;
-  margin: 50px auto;
+  margin: 20px auto;
   background: white;
   border-radius: 5px;
   box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
@@ -329,6 +334,29 @@ h2 {
 
 .heading {
   font-size: 2.2rem;
+}
+
+.select-container {
+  text-align: center;
+}
+
+.select {
+  display: inline-block;
+  padding-right: 20px;
+}
+
+.select p {
+  display: inline-block;
+  color: var(--lightblue);
+  padding-right: 5px;
+}
+
+.dropdown {
+  display: inline-block;
+}
+
+select {
+  border-radius: 3px;
 }
 
 .task {

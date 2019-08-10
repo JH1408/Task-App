@@ -5,6 +5,38 @@
     <div class="box" id="heading">
       <h1 class="heading"><%= date %></h1>
     </div>
+    <div class="select-container">
+      <div class="select">
+        <p>Sort by</p>
+        <form class="sort dropdown">
+          <select>
+            <option value="asc">Date (ascending)</option>
+            <option value="desc">Date (descending)</option>
+          </select>
+        </form>
+      </div>
+      <div class="select">
+        <p>Filter</p>
+        <form class="filter dropdown">
+          <select>
+            <option value="all">All</option>
+            <option value="comp">Completed</option>
+            <option value="incomp">Incompleted</option>
+          </select>
+        </form>
+      </div>
+      <div class="select">
+        <p>Results per page</p>
+        <form class="count dropdown">
+          <select>
+            <option value="all">All</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+          </select>
+        </form>
+      </div>
+    </div>
     <div class="box">
       <% tasks.forEach(function(task) { %>
           <div class="item">
@@ -14,7 +46,7 @@
               <%} else {%>
                 <i class="far fa-check-square checked">
               <%}%>
-              <input type="text" class="edit-task" value="<%= task.description %>" data-id="<%= task._id %>">
+              <input type="text" class="edit-task <% if(task.completed == true) {%>done<%} %>" value="<%= task.description %>" data-id="<%= task._id %>">
               <button type="submit" style="visibility: hidden"></button>
             </form>
           </div>

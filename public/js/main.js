@@ -216,6 +216,7 @@ $('.unchecked').on('click', (e) => {
     })
   }).then((response) => {
       $(e.target).removeClass('fa-square').addClass('fa-check-square checked').removeClass('unchecked');
+      $(e.target).find('.edit-task').addClass('done');
   });
 });
 
@@ -232,5 +233,28 @@ $('.checked').on('click', (e) => {
     })
   }).then((response) => {
       $(e.target).removeClass('fa-checked-square').addClass('fa-square unchecked').removeClass('checked');
+      $(e.target).find('.edit-task').removeClass('done');
+  });
+});
+
+
+// show only completed tasks
+$('.filter').on('change', (e) => {
+  //e.preventDefault();
+  if ($('.filter').val() == 'comp') {
+    const query = '?completed=true';
+  } else if ($('.filter').val() == 'incomp') {
+    const query = '?completed=false';
+  } else {
+    const query = '';
+  }
+
+  fetch(`/tasks/${query}`, {
+    method: 'GET',
+    headers: {
+    'Content-Type': 'application/json'
+  },
+    }).then((response) => {
+
   });
 });
