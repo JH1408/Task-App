@@ -3,6 +3,7 @@
 const express = require('express');
 const router = new express.Router();
 const auth = require('../middleware/auth');
+const date = require('../utils/date');
 
 router.get('/', (req,res) => {
   if(req.cookies.auth_token) {
@@ -39,6 +40,16 @@ router.get('/users/register', (req,res) => {
     btnOneLink: '/users/login',
     btnTwo: 'Sign Up',
     btnTwoLink: '/users/register'
+  });
+});
+
+router.get('/users/tasks', (req, res) => {
+  res.render('tasks', {
+      date: date.getDate(),
+      btnOne: 'Account',
+      btnOneLink: '/users/me',
+      btnTwo: 'Sign Out',
+      btnTwoLink: ''
   });
 });
 

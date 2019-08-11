@@ -4,7 +4,6 @@ const express = require('express');
 const Task = require('../models/task');
 const router = new express.Router();
 const auth = require('../middleware/auth');
-const date = require('../utils/date');
 
 router.post('/tasks', auth, async (req, res) => {
   console.log(req);
@@ -44,14 +43,7 @@ router.post('/tasks', auth, async (req, res) => {
            sort
          }
        }).execPopulate();
-       res.render('tasks', {
-           tasks: req.user.tasks,
-           date: date.getDate(),
-           btnOne: 'Account',
-           btnOneLink: '/users/me',
-           btnTwo: 'Sign Out',
-           btnTwoLink: ''
-       });
+       res.send(req.user.tasks);
      } catch(err) {
        res.status(500).send();
      }

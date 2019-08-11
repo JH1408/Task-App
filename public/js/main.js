@@ -163,6 +163,33 @@ $('.delete-account').on('submit', (e) => {
   });
 });
 
+$(document).ready(function() {
+  let html = '';
+  let checkbox = '';
+  fetch('/tasks').then((response) => {
+      response.json().then((tasks) => {
+        tasks.forEach((task) => {
+          if(task.completed == false) {
+            checkbox = '<i class="far fa-square unchecked">'
+          } else {
+            checkbox = '<i class="far fa-check-square checked">'
+          }
+          html = `<div class="item">
+            <form class="task">
+              ${checkbox}
+              <input type="text" class="edit-task" value="${task.description}" data-id="${task._id}">
+              <button type="submit" style="visibility: hidden"></button>
+            </form>
+          </div>
+       }); `
+        $('.newItem').before(html)
+       })
+      }
+    );
+  });
+});
+
+
 // add new tasks
 $('.newItem').on('submit', (e) => {
   e.preventDefault();
@@ -203,58 +230,61 @@ $('.task').on('submit', (e) => {
   });
 });
 
-// check task
-$('.unchecked').on('click', (e) => {
-  e.preventDefault();
-  fetch(`/tasks/${$(e.target).find('.edit-task').data('id')}`, {
-    method: 'PATCH',
-    headers: {
-    'Content-Type': 'application/json'
-  },
-    body: JSON.stringify({
-      completed: true,
-    })
-  }).then((response) => {
-      $(e.target).removeClass('fa-square').addClass('fa-check-square checked').removeClass('unchecked');
-      $(e.target).find('.edit-task').addClass('done');
-  });
-});
-
-// uncheck task
-$('.checked').on('click', (e) => {
-  e.preventDefault();
-  fetch(`/tasks/${$(e.target).find('.edit-task').data('id')}`, {
-    method: 'PATCH',
-    headers: {
-    'Content-Type': 'application/json'
-  },
-    body: JSON.stringify({
-      completed: false,
-    })
-  }).then((response) => {
-      $(e.target).removeClass('fa-checked-square').addClass('fa-square unchecked').removeClass('checked');
-      $(e.target).find('.edit-task').removeClass('done');
-  });
-});
+// // check task
+// $('.unchecked').on('click', (e) => {
+//   e.preventDefault();
+//   fetch(`/tasks/${$(e.target).find('.edit-task').data('id')}`, {
+//     method: 'PATCH',
+//     headers: {
+//     'Content-Type': 'application/json'
+//   },
+//     body: JSON.stringify({
+//       completed: true,
+//     })
+//   }).then((response) => {
+//       $(e.target).removeClass('fa-square').addClass('fa-check-square checked').removeClass('unchecked');
+//       $(e.target).find('.edit-task').addClass('done');
+//   });
+// });
+//
+// // uncheck task
+// $('.checked').on('click', (e) => {
+//   e.preventDefault();
+//   fetch(`/tasks/${$(e.target).find('.edit-task').data('id')}`, {
+//     method: 'PATCH',
+//     headers: {
+//     'Content-Type': 'application/json'
+//   },
+//     body: JSON.stringify({
+//       completed: false,
+//     })
+//   }).then((response) => {
+//       $(e.target).removeClass('fa-checked-square').addClass('fa-square unchecked').removeClass('checked');
+//       $(e.target).find('.edit-task').removeClass('done');
+//   });
+// });
 
 
 // show only completed tasks
 $('.filter').on('change', (e) => {
-  //e.preventDefault();
+  console.log(e);
+  let query = '';
   if ($('.filter').val() == 'comp') {
-    const query = '?completed=true';
+    query = '?completed=true';
   } else if ($('.filter').val() == 'incomp') {
-    const query = '?completed=false';
+    query = '?completed=false';
   } else {
-    const query = '';
+    query = '';
   }
-
-  fetch(`/tasks/${query}`, {
-    method: 'GET',
-    headers: {
-    'Content-Type': 'application/json'
-  },
-    }).then((response) => {
-
-  });
+   window.location.assign(`/tasks/${query}`);
 });
+
+  // fetch(`/tasks/${query}`, {
+  //   method: 'GET',
+  //   headers: {
+  //   'Content-Type': 'application/json'
+  // },
+  //   }).then((response) => {
+  //
+  // });
+// });

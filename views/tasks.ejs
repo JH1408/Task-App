@@ -38,19 +38,7 @@
       </div>
     </div>
     <div class="box">
-      <% tasks.forEach(function(task) { %>
-          <div class="item">
-            <form class="task">
-              <% if(task.completed == false) { %>
-                <i class="far fa-square unchecked">
-              <%} else {%>
-                <i class="far fa-check-square checked">
-              <%}%>
-              <input type="text" class="edit-task <% if(task.completed == true) {%>done<%} %>" value="<%= task.description %>" data-id="<%= task._id %>">
-              <button type="submit" style="visibility: hidden"></button>
-            </form>
-          </div>
-      <% }); %>
+      <!-- JS content -->
       <form class="item newItem">
         <input class="newTask" type="text" name="newTask" placeholder="New Task" autocomplete="off" required>
         <button class="addTask" type="submit">+</button>
