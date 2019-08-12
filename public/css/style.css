@@ -40,7 +40,7 @@ input:focus, button:focus, select:focus {
 }
 
 .user-bg {
-  height: 140vh;
+  height: 150vh;
 }
 
 header {
@@ -187,6 +187,7 @@ form {
 
 .message {
   padding-bottom: 20px;
+  margin: 0;
 }
 
 .switch {
@@ -266,6 +267,9 @@ label {
 .form-signin label.error {
   color:red;
   margin-bottom: 5px;
+  width: 255px;
+  text-align: left;
+  left: 5px;
 }
 
 .form-signin input.error {

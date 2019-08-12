@@ -27,7 +27,7 @@ $.validator.addMethod("alphanumeric", function(value, element) {
 	return this.optional(element) || /^\w+$/i.test(value);
 }, "Letters, numbers, and underscores only please");
 
-$(document).ready(function ($) {
+$(document).ready(function () {
     $('.register-form').validate({
         rules: {
             name: {
@@ -36,18 +36,15 @@ $(document).ready(function ($) {
             },
             email: {
                 required: true,
-                email: true
+                email: true,
             },
             newPassword: {
                 required: true,
-                password: true,
                 minlength: 7,
                 alphanumeric: true
             },
             confirmPassword: {
                 required: true,
-                password: true,
-                minlength: 7,
                 equalTo: '.newPassword'
             }
         },
@@ -58,7 +55,8 @@ $(document).ready(function ($) {
             },
             newPassword: {
               required: "Please enter a password.",
-              password: "Your password must be at least 7 characters and contain numbers and letters."
+              minlength: "Your password must be at least 7 characters and contain numbers and letters.",
+              alphanumeric: "Your password must be at least 7 characters and contain numbers and letters."
             },
             confirmPassword: {
               equalTo: "Passwords must match."
@@ -310,6 +308,9 @@ $('.filter').on('change', (e) => {
         </div>
       }); `;
       $('.newItem').before(html);
+      if($('.far').hasClass('checked')) {
+        $('.checked').find('.edit-task').addClass('done');
+      }
     });
     }
   );

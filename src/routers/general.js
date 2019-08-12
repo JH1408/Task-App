@@ -43,7 +43,7 @@ router.get('/users/register', (req,res) => {
   });
 });
 
-router.get('/users/tasks', (req, res) => {
+router.get('/users/tasks', auth, (req, res) => {
   res.render('tasks', {
       date: date.getDate(),
       btnOne: 'Account',
