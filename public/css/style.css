@@ -428,6 +428,11 @@ form.item {
   box-shadow: inset 0 -3px 0 0 var(--darkblue);
 }
 
+.fa-trash-alt {
+  display: none;
+  font-size: 12px;
+}
+
 ::placeholder {
   color: grey;
   opacity: 1;

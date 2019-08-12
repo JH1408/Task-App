@@ -163,7 +163,6 @@ $('.delete-account').on('submit', (e) => {
   });
 });
 
-
 // show tasks
 let checkbox = '';
 let html = '';
@@ -183,15 +182,18 @@ $(document).ready(function() {
               <input type="text" class="edit-task" value="${task.description}" data-id="${task._id}">
               <button type="submit" style="visibility: hidden"></button>
             </form>
+            <i class="far fa-trash-alt"></i>
           </div>
         }); `;
         $('.newItem').before(html);
+        if($('.far').hasClass('checked')) {
+          $('.checked').find('.edit-task').addClass('done');
+        }
       });
       }
     );
   });
 });
-
 
 // add new tasks
 $('.newItem').on('submit', (e) => {
@@ -207,17 +209,13 @@ $('.newItem').on('submit', (e) => {
     })
   }).then((response) => {
     response.json().then((tasks) => {
-          if(tasks[(tasks.length)-1].completed == false) {
-          checkbox = '<i class="far fa-square unchecked">';
-        } else {
-          checkbox = '<i class="far fa-check-square checked">';
-        }
-        html = `<div class="item task-item">
+      html = `<div class="item task-item">
           <form class="task">
-            ${checkbox}
+            <i class="far fa-square unchecked">
             <input type="text" class="edit-task" value="${tasks[(tasks.length)-1].description}" data-id="${tasks[(tasks.length)-1]._id}">
             <button type="submit" style="visibility: hidden"></button>
           </form>
+          <i class="far fa-trash-alt"></i>
         </div>
       }); `;
       $('.newItem').before(html);
@@ -228,7 +226,7 @@ $('.newItem').on('submit', (e) => {
 });
 
 // edit task
-$('.task').on('submit', (e) => {
+$(document).on('submit', '.task', function (e) {
   e.preventDefault();
   fetch(`/tasks/${$(e.target).find('.edit-task').data('id')}`, {
     method: 'PATCH',
@@ -236,15 +234,15 @@ $('.task').on('submit', (e) => {
     'Content-Type': 'application/json'
   },
     body: JSON.stringify({
-      description: $(e.target).find('.edit-task').val(),
+      description: $(e.target).find('.edit-task').val()
     })
   }).then((response) => {
-    console.log(response);
+
   });
 });
 
 // check task
-$('.unchecked').on('click', (e) => {
+$(document).on('click', '.unchecked', (e) => {
   e.preventDefault();
   fetch(`/tasks/${$(e.target).find('.edit-task').data('id')}`, {
     method: 'PATCH',
@@ -259,24 +257,23 @@ $('.unchecked').on('click', (e) => {
       $(e.target).find('.edit-task').addClass('done');
   });
 });
-//
-// // uncheck task
-// $('.checked').on('click', (e) => {
-//   e.preventDefault();
-//   fetch(`/tasks/${$(e.target).find('.edit-task').data('id')}`, {
-//     method: 'PATCH',
-//     headers: {
-//     'Content-Type': 'application/json'
-//   },
-//     body: JSON.stringify({
-//       completed: false,
-//     })
-//   }).then((response) => {
-//       $(e.target).removeClass('fa-checked-square').addClass('fa-square unchecked').removeClass('checked');
-//       $(e.target).find('.edit-task').removeClass('done');
-//   });
-// });
 
+// uncheck task
+$(document).on('click', '.checked', (e) => {
+  e.preventDefault();
+  fetch(`/tasks/${$(e.target).find('.edit-task').data('id')}`, {
+    method: 'PATCH',
+    headers: {
+    'Content-Type': 'application/json'
+  },
+    body: JSON.stringify({
+      completed: false,
+    })
+  }).then((response) => {
+      $(e.target).removeClass('fa-checked-square').addClass('fa-square unchecked').removeClass('checked');
+      $(e.target).find('.edit-task').removeClass('done');
+  });
+});
 
 // show only completed tasks
 $('.filter').on('change', (e) => {
@@ -309,11 +306,36 @@ $('.filter').on('change', (e) => {
             <input type="text" class="edit-task" value="${task.description}" data-id="${task._id}">
             <button type="submit" style="visibility: hidden"></button>
           </form>
+          <i class="far fa-trash-alt"></i>
         </div>
       }); `;
       $('.newItem').before(html);
     });
     }
   );
+  });
+});
+
+// delete tasks
+$(document).on('mouseover', '.task-item', () => {
+  $('.fa-trash-alt').css('display', 'inline');
+});
+
+$(document).on('mouseout', '.item', () => {
+  $('.fa-trash-alt').css('display', 'none');
+});
+
+$(document).on('click', '.fa-trash-alt', (e) => {
+  console.log($(e.target).parent().parent().find('.edit-task'));
+  fetch(`/tasks/${$(e.target).parent().parent().find('.edit-task').data('id')}`, {
+    method: 'DELETE',
+    headers: {
+    'Content-Type': 'application/json'
+  },
+    body: JSON.stringify({
+      completed: false,
+    })
+  }).then((response) => {
+    $(e.target).parent().parent().parent().remove();
   });
 });
