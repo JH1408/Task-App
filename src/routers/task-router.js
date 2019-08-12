@@ -6,7 +6,6 @@ const router = new express.Router();
 const auth = require('../middleware/auth');
 
 router.post('/tasks', auth, async (req, res) => {
-  console.log(req);
   const task = new Task({
     description: req.body.description,
     author: req.user._id
@@ -52,6 +51,7 @@ router.post('/tasks', auth, async (req, res) => {
 
 router.get('/tasks/:id', auth, async (req, res) => {
   const _id = req.params.id;
+  console.log(req);
   try {
     const task = await Task.findOne({_id, author: req.user._id});
     if(!task) {

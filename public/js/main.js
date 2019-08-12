@@ -163,27 +163,30 @@ $('.delete-account').on('submit', (e) => {
   });
 });
 
+
+// show tasks
+let checkbox = '';
+let html = '';
+
 $(document).ready(function() {
-  let html = '';
-  let checkbox = '';
   fetch('/tasks').then((response) => {
       response.json().then((tasks) => {
         tasks.forEach((task) => {
           if(task.completed == false) {
-            checkbox = '<i class="far fa-square unchecked">'
+            checkbox = '<i class="far fa-square unchecked">';
           } else {
-            checkbox = '<i class="far fa-check-square checked">'
+            checkbox = '<i class="far fa-check-square checked">';
           }
-          html = `<div class="item">
+          html = `<div class="item task-item">
             <form class="task">
               ${checkbox}
               <input type="text" class="edit-task" value="${task.description}" data-id="${task._id}">
               <button type="submit" style="visibility: hidden"></button>
             </form>
           </div>
-       }); `
-        $('.newItem').before(html)
-       })
+        }); `;
+        $('.newItem').before(html);
+      });
       }
     );
   });
@@ -203,14 +206,24 @@ $('.newItem').on('submit', (e) => {
       completed: false
     })
   }).then((response) => {
-      $('.newItem').before(`<div class="item">
-        <form class="task" >
-          <i class="far fa-square unchecked">
-          <input type="text" class="edit-task" value="${$('.newTask').val()}">
-          <button type="submit" style="visibility: hidden"></button>
-        </form>
-      </div>`);
+    response.json().then((tasks) => {
+          if(tasks[(tasks.length)-1].completed == false) {
+          checkbox = '<i class="far fa-square unchecked">';
+        } else {
+          checkbox = '<i class="far fa-check-square checked">';
+        }
+        html = `<div class="item task-item">
+          <form class="task">
+            ${checkbox}
+            <input type="text" class="edit-task" value="${tasks[(tasks.length)-1].description}" data-id="${tasks[(tasks.length)-1]._id}">
+            <button type="submit" style="visibility: hidden"></button>
+          </form>
+        </div>
+      }); `;
+      $('.newItem').before(html);
       $('.newTask').val('');
+      }
+    );
   });
 });
 
@@ -230,22 +243,22 @@ $('.task').on('submit', (e) => {
   });
 });
 
-// // check task
-// $('.unchecked').on('click', (e) => {
-//   e.preventDefault();
-//   fetch(`/tasks/${$(e.target).find('.edit-task').data('id')}`, {
-//     method: 'PATCH',
-//     headers: {
-//     'Content-Type': 'application/json'
-//   },
-//     body: JSON.stringify({
-//       completed: true,
-//     })
-//   }).then((response) => {
-//       $(e.target).removeClass('fa-square').addClass('fa-check-square checked').removeClass('unchecked');
-//       $(e.target).find('.edit-task').addClass('done');
-//   });
-// });
+// check task
+$('.unchecked').on('click', (e) => {
+  e.preventDefault();
+  fetch(`/tasks/${$(e.target).find('.edit-task').data('id')}`, {
+    method: 'PATCH',
+    headers: {
+    'Content-Type': 'application/json'
+  },
+    body: JSON.stringify({
+      completed: true,
+    })
+  }).then((response) => {
+      $(e.target).removeClass('fa-square').addClass('fa-check-square checked').removeClass('unchecked');
+      $(e.target).find('.edit-task').addClass('done');
+  });
+});
 //
 // // uncheck task
 // $('.checked').on('click', (e) => {
@@ -269,22 +282,38 @@ $('.task').on('submit', (e) => {
 $('.filter').on('change', (e) => {
   console.log(e);
   let query = '';
-  if ($('.filter').val() == 'comp') {
+  if ($('.filter-dropdown').val() == 'comp') {
     query = '?completed=true';
-  } else if ($('.filter').val() == 'incomp') {
+  } else if ($('.filter-dropdown').val() == 'incomp') {
     query = '?completed=false';
   } else {
     query = '';
   }
-   window.location.assign(`/tasks/${query}`);
+  fetch(`/tasks/${query}`, {
+    method: 'GET',
+    headers: {
+    'Content-Type': 'application/json'
+    },
+  }).then((response) => {
+    response.json().then((tasks) => {
+      $('.task-item').remove();
+      tasks.forEach((task) => {
+        if(task.completed == false) {
+          checkbox = '<i class="far fa-square unchecked">';
+        } else {
+          checkbox = '<i class="far fa-check-square checked">';
+        }
+        html = `<div class="item task-item">
+          <form class="task">
+            ${checkbox}
+            <input type="text" class="edit-task" value="${task.description}" data-id="${task._id}">
+            <button type="submit" style="visibility: hidden"></button>
+          </form>
+        </div>
+      }); `;
+      $('.newItem').before(html);
+    });
+    }
+  );
+  });
 });
-
-  // fetch(`/tasks/${query}`, {
-  //   method: 'GET',
-  //   headers: {
-  //   'Content-Type': 'application/json'
-  // },
-  //   }).then((response) => {
-  //
-  // });
-// });
