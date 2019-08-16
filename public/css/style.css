@@ -379,6 +379,7 @@ h2 {
 
 select {
   border-radius: 3px;
+  border: 0px;
 }
 
 .task {

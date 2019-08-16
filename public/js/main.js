@@ -322,9 +322,9 @@ $('.count').on('change', (e) => {
       $('.task-item').remove();
       tasks.forEach((task) => {
         if(task.completed == false) {
-          checkbox = '<i class="far fa-square unchecked">';
+          checkbox = '<span class="far fa-square unchecked"></span>';
         } else {
-          checkbox = '<i class="far fa-check-square checked">';
+          checkbox = '<span class="far fa-check-square checked"></span>';
         }
         html = `<div class="item task-item">
           <form class="task">
@@ -359,9 +359,9 @@ $('.sort').on('change', (e) => {
       $('.task-item').remove();
       tasks.forEach((task) => {
         if(task.completed == false) {
-          checkbox = '<i class="far fa-square unchecked">';
+          checkbox = '<span class="far fa-square unchecked"></span>';
         } else {
-          checkbox = '<i class="far fa-check-square checked">';
+          checkbox = '<span class="far fa-check-square checked"></span>';
         }
         html = `<div class="item task-item">
           <form class="task">
@@ -396,9 +396,9 @@ $('.filter').on('change', (e) => {
       $('.task-item').remove();
       tasks.forEach((task) => {
         if(task.completed == false) {
-          checkbox = '<i class="far fa-square unchecked">';
+          checkbox = '<span class="far fa-square unchecked"></span>';
         } else {
-          checkbox = '<i class="far fa-check-square checked">';
+          checkbox = '<span class="far fa-check-square checked"></span>';
         }
         html = `<div class="item task-item">
           <form class="task">

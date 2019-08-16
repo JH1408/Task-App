@@ -32,7 +32,7 @@ router.post('/users', async (req, res) => {
   });
   try {
     await user.save();
-//  sendWelcomeEmail(user.email, user.name);
+    sendWelcomeEmail(user.email, user.name);
     const token = await user.generateAuthToken();
     res.cookie('auth_token', token);
     res.redirect('/users/tasks');
@@ -145,7 +145,7 @@ router.patch('/users/me', auth, async (req, res) => {
 
 router.delete('/users/me', auth, async (req, res) => {
   try {
-    //sendGoodbyeEmail(req.user.email, req.user.name);
+    sendGoodbyeEmail(req.user.email, req.user.name);
     await req.user.remove();
     res.clearCookie('auth_token');
     res.send();
