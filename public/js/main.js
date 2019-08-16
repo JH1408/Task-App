@@ -325,6 +325,100 @@ $('.filter').on('change', (e) => {
   });
 });
 
+//sort tasks
+$('.sort').on('change', (e) => {
+  console.log(e);
+  let query = '';
+  if ($('.sort-dropdown').val() == 'desc') {
+    query = '?sortBy=createdAt:desc';
+  } else if ($('.sort-dropdown').val() == 'asc') {
+    query = '?sortBy=createdAt:asc';
+  } else {
+    query = '';
+  }
+  fetch(`/tasks/${query}`, {
+    method: 'GET',
+    headers: {
+    'Content-Type': 'application/json'
+    },
+  }).then((response) => {
+    response.json().then((tasks) => {
+      $('.task-item').remove();
+      tasks.forEach((task) => {
+        if(task.completed == false) {
+          checkbox = '<i class="far fa-square unchecked">';
+        } else {
+          checkbox = '<i class="far fa-check-square checked">';
+        }
+        html = `<div class="item task-item">
+          <form class="task">
+            ${checkbox}
+            <input type="text" class="edit-task" value="${task.description}" data-id="${task._id}">
+            <button type="submit" style="visibility: hidden"></button>
+          </form>
+          <i class="far fa-trash-alt"></i>
+        </div>
+       `;
+      $('.newItem').before(html);
+      if($('.far').hasClass('checked')) {
+        $('.checked').parent().find('.edit-task').addClass('done');
+      } else {
+        $('.checked').parent().find('.edit-task').removeClass('done');
+      }
+    });
+    }
+  );
+  });
+});
+
+// pagination
+$('.count').on('change', (e) => {
+  console.log(e);
+  let query = '';
+  if ($('.count-dropdown').val() == '5') {
+    query = '?limit=5';
+  } else if ($('.count-dropdown').val() == '10') {
+    query = '?limit=10';
+  } else if ($('.count-dropdown').val() == '20') {
+    query = '?limit=20';
+  } else {
+    query = '';
+  }
+  fetch(`/tasks/${query}`, {
+    method: 'GET',
+    headers: {
+    'Content-Type': 'application/json'
+    },
+  }).then((response) => {
+    response.json().then((tasks) => {
+      $('.task-item').remove();
+      tasks.forEach((task) => {
+        if(task.completed == false) {
+          checkbox = '<i class="far fa-square unchecked">';
+        } else {
+          checkbox = '<i class="far fa-check-square checked">';
+        }
+        html = `<div class="item task-item">
+          <form class="task">
+            ${checkbox}
+            <input type="text" class="edit-task" value="${task.description}" data-id="${task._id}">
+            <button type="submit" style="visibility: hidden"></button>
+          </form>
+          <i class="far fa-trash-alt"></i>
+        </div>
+       `;
+      $('.newItem').before(html);
+      if($('.far').hasClass('checked')) {
+        $('.checked').parent().find('.edit-task').addClass('done');
+      } else {
+        $('.checked').parent().find('.edit-task').removeClass('done');
+      }
+    });
+    }
+  );
+  });
+});
+
 // delete tasks
 $(document).on('mouseover', '.task-item', () => {
   $('.fa-trash-alt').css('display', 'inline');

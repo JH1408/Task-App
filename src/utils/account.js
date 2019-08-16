@@ -9,7 +9,7 @@ const sendWelcomeEmail = (email, name) => {
     to: email,
     from: 'josy.hartig@googlemail.com',
     subject: 'Thanks for joining in.',
-    text: `Welcome to the app, ${name}. Let me know how you get along with the app.`
+    text: `Welcome to the app, ${name}.`
   });
 };
 
@@ -17,7 +17,7 @@ const sendGoodbyeEmail = (email, name) => {
   sgMail.send({
     to: email,
     from: 'josy.hartig@googlemail.com',
-    subject: "We're sorry to see you go.",
+    subject: "Goodbye.",
     text: `We're sorry to see you go, ${name}. Let me know how we can improve.`
   });
 };

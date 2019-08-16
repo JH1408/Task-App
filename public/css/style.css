@@ -325,8 +325,11 @@ h2 {
   background-image: -webkit-linear-gradient(65deg, var(--lightblue) 50%, var(--darkblue) 50%);
   width: 100%;
   min-height: 100vh;
-  position: absolute;
+  position: relative;
   left: 0;
+  top: -10px;
+  padding-top: 20px;
+  padding-bottom: 50px;
 }
 
 .unchecked, .checked {
