@@ -422,14 +422,6 @@ $('.filter').on('change', (e) => {
 });
 
 // delete tasks
-$(document).on('mouseover', '.task-item', () => {
-  $('.fa-trash-alt').css('display', 'inline');
-});
-
-$(document).on('mouseout', '.item', () => {
-  $('.fa-trash-alt').css('display', 'none');
-});
-
 $(document).on('click', '.fa-trash-alt', (e) => {
   console.log($(e.target).parent());
   fetch(`/tasks/${$(e.target).parent().find('.edit-task').data('id')}`, {

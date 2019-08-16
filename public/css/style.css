@@ -457,6 +457,10 @@ form.item {
   cursor: pointer;
 }
 
+.task-item:hover .fa-trash-alt {
+  display: block;
+}
+
 ::placeholder {
   color: grey;
   opacity: 1;
