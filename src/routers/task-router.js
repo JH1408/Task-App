@@ -51,7 +51,6 @@ router.post('/tasks', auth, async (req, res) => {
 
 router.get('/tasks/:id', auth, async (req, res) => {
   const _id = req.params.id;
-  console.log(req);
   try {
     const task = await Task.findOne({_id, author: req.user._id});
     if(!task) {
@@ -91,6 +90,15 @@ router.delete('/tasks/:id', auth, async (req, res) => {
       return res.status(404).send();
     }
     res.send(task);
+  } catch(err) {
+    res.status(500).send();
+  }
+});
+
+router.delete('/tasks', auth, async (req, res) => {
+  try {
+    const task = await Task.deleteMany({author: req.user._id});
+    res.send();
   } catch(err) {
     res.status(500).send();
   }

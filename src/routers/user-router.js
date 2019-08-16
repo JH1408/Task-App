@@ -25,7 +25,6 @@ const upload = multer({
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 router.post('/users', async (req, res) => {
-
   const user = new User({
     name: req.body.name,
     email: req.body.email,
@@ -148,12 +147,8 @@ router.delete('/users/me', auth, async (req, res) => {
   try {
     //sendGoodbyeEmail(req.user.email, req.user.name);
     await req.user.remove();
-    res.render('index', {
-      btnOne: 'Sign In',
-      btnOneLink: '/users/login',
-      btnTwo: 'Sign Up',
-      btnTwoLink: '/users/register'
-    });
+    res.clearCookie('auth_token');
+    res.send();
   } catch(err) {
     res.status(500).send();
     console.log(err.message);

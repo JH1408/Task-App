@@ -1,6 +1,6 @@
 
 body {
-  font-family: 'helvetica', 'arial', sans-serif;
+  font-family: 'Helvetica', 'Arial', sans-serif;
   color: white;
   overflow-x: hidden;
   width: 100%;
@@ -69,6 +69,7 @@ header {
 .buttons {
   z-index: 1;
 }
+
 .signup-btn, .signin  {
   background: var(--pink);
   -webkit-border-radius: 10px;
@@ -116,7 +117,7 @@ header {
 .hero-cont {
   position: absolute;
   text-align: center;
-  top: 30%;
+  top: 40%;
   width: 100%;
   z-index: 1;
 }
@@ -134,6 +135,7 @@ h1 {
 form {
   z-index: 1;
   text-align: -webkit-center;
+  text-align: -moz-center;
 }
 
 .start-btn {
@@ -160,6 +162,19 @@ form {
   border-radius: 5px;
   font-size: 1.1rem;
   width: 250px;
+}
+
+.popup {
+  visibility: hidden;
+  background-color: white;
+  opacity: 0.8;
+  color: var(--pink);
+  font-size: 1rem;
+  text-align: center;
+  width: 100%;
+  z-index: 10;
+  position: absolute;
+  top: 0;
 }
 
 .delete {
@@ -435,6 +450,7 @@ form.item {
 .fa-trash-alt {
   display: none;
   font-size: 12px;
+  cursor: pointer;
 }
 
 ::placeholder {

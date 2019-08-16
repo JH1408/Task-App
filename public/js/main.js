@@ -24,7 +24,7 @@ $(document).ready(function() {
 
 // validation for registration
 $.validator.addMethod("alphanumeric", function(value, element) {
-	return this.optional(element) || /^\w+$/i.test(value);
+	return this.optional(element) || /^[\w.]+$/i.test(value);
 }, "Letters, numbers, and underscores only please");
 
 $(document).ready(function () {
@@ -45,7 +45,7 @@ $(document).ready(function () {
             },
             confirmPassword: {
                 required: true,
-                equalTo: '.newPassword'
+                equalTo: '#password'
             }
         },
         messages: {
@@ -109,21 +109,19 @@ $(document).ready(function($) {
         rules: {
             newPassword: {
                 required: true,
-                password: true,
                 minlength: 7,
                 alphanumeric: true
             },
             confirmPassword: {
                 required: true,
-                password: true,
-                minlength: 7,
-                equalTo: '.newPassword'
+                equalTo: '#newPassword'
             }
         },
         messages: {
             newPassword: {
               required: "No password specified.",
-              password: "Your new password must be at least 7 characters and contain numbers and letters."
+              minlength: "Your new password must be at least 7 characters and contain numbers and letters.",
+              alphanumeric: "Your new password must be at least 7 characters and contain numbers and letters."
             },
             confirmPassword: {
               equalTo: "Passwords must match."
@@ -151,7 +149,7 @@ $('.password-form').on('submit', (e) => {
 // delete account
 $('.delete-account').on('submit', (e) => {
   e.preventDefault();
-  fetch('/users/me', {
+  fetch('/tasks', {
     method: 'DELETE',
     headers: {
     'Content-Type': 'application/json'
@@ -159,7 +157,15 @@ $('.delete-account').on('submit', (e) => {
   }).then((response) => {
     console.log(response);
   });
-});
+  fetch('/users/me', {
+    method: 'DELETE',
+    headers: {
+    'Content-Type': 'application/json'
+  }
+  }).then((response) => {
+      window.location= '/';
+    });
+  });
 
 // show tasks
 let checkbox = '';
@@ -170,9 +176,9 @@ $(document).ready(function() {
       response.json().then((tasks) => {
         tasks.forEach((task) => {
           if(task.completed == false) {
-            checkbox = '<i class="far fa-square unchecked">';
+            checkbox = '<span class="far fa-square unchecked"></span>';
           } else {
-            checkbox = '<i class="far fa-check-square checked">';
+            checkbox = '<span class="far fa-check-square checked"></span>';
           }
           html = `<div class="item task-item">
             <form class="task">
@@ -182,10 +188,10 @@ $(document).ready(function() {
             </form>
             <i class="far fa-trash-alt"></i>
           </div>
-        }); `;
+         `;
         $('.newItem').before(html);
         if($('.far').hasClass('checked')) {
-          $('.checked').find('.edit-task').addClass('done');
+          $('.checked').parent().find('.edit-task').addClass('done');
         }
       });
       }
@@ -209,13 +215,13 @@ $('.newItem').on('submit', (e) => {
     response.json().then((tasks) => {
       html = `<div class="item task-item">
           <form class="task">
-            <i class="far fa-square unchecked">
+            <span class="far fa-square unchecked"></span>
             <input type="text" class="edit-task" value="${tasks[(tasks.length)-1].description}" data-id="${tasks[(tasks.length)-1]._id}">
             <button type="submit" style="visibility: hidden"></button>
           </form>
           <i class="far fa-trash-alt"></i>
         </div>
-      }); `;
+       `;
       $('.newItem').before(html);
       $('.newTask').val('');
       }
@@ -242,7 +248,7 @@ $(document).on('submit', '.task', function (e) {
 // check task
 $(document).on('click', '.unchecked', (e) => {
   e.preventDefault();
-  fetch(`/tasks/${$(e.target).find('.edit-task').data('id')}`, {
+  fetch(`/tasks/${$(e.target).parent().find('.edit-task').data('id')}`, {
     method: 'PATCH',
     headers: {
     'Content-Type': 'application/json'
@@ -252,14 +258,14 @@ $(document).on('click', '.unchecked', (e) => {
     })
   }).then((response) => {
       $(e.target).removeClass('fa-square').addClass('fa-check-square checked').removeClass('unchecked');
-      $(e.target).find('.edit-task').addClass('done');
+      $(e.target).parent().find('.edit-task').addClass('done');
   });
 });
 
 // uncheck task
 $(document).on('click', '.checked', (e) => {
   e.preventDefault();
-  fetch(`/tasks/${$(e.target).find('.edit-task').data('id')}`, {
+  fetch(`/tasks/${$(e.target).parent().find('.edit-task').data('id')}`, {
     method: 'PATCH',
     headers: {
     'Content-Type': 'application/json'
@@ -269,7 +275,7 @@ $(document).on('click', '.checked', (e) => {
     })
   }).then((response) => {
       $(e.target).removeClass('fa-checked-square').addClass('fa-square unchecked').removeClass('checked');
-      $(e.target).find('.edit-task').removeClass('done');
+      $(e.target).parent().find('.edit-task').removeClass('done');
   });
 });
 
@@ -306,10 +312,12 @@ $('.filter').on('change', (e) => {
           </form>
           <i class="far fa-trash-alt"></i>
         </div>
-      }); `;
+       `;
       $('.newItem').before(html);
       if($('.far').hasClass('checked')) {
-        $('.checked').find('.edit-task').addClass('done');
+        $('.checked').parent().find('.edit-task').addClass('done');
+      } else {
+        $('.checked').parent().find('.edit-task').removeClass('done');
       }
     });
     }
@@ -327,8 +335,8 @@ $(document).on('mouseout', '.item', () => {
 });
 
 $(document).on('click', '.fa-trash-alt', (e) => {
-  console.log($(e.target).parent().parent().find('.edit-task'));
-  fetch(`/tasks/${$(e.target).parent().parent().find('.edit-task').data('id')}`, {
+  console.log($(e.target).parent());
+  fetch(`/tasks/${$(e.target).parent().find('.edit-task').data('id')}`, {
     method: 'DELETE',
     headers: {
     'Content-Type': 'application/json'
@@ -337,6 +345,6 @@ $(document).on('click', '.fa-trash-alt', (e) => {
       completed: false,
     })
   }).then((response) => {
-    $(e.target).parent().parent().parent().remove();
+    $(e.target).parent().remove();
   });
 });
