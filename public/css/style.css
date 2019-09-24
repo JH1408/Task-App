@@ -298,7 +298,6 @@ label {
   border-right: 0;
   border-left: 0;
   border-radius: 0;
-  &:focus {border-color: #111;}
 }
 
 h2, h3 {
@@ -488,4 +487,10 @@ footer {
   text-align: center;
   font-size: 0.6rem;
   padding-bottom: 20px;
+}
+
+@media only screen and (max-width: 900px) {
+  body {
+    font-size: 30px;
+  }
 }
