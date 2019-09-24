@@ -17,7 +17,7 @@ body {
   --lightblue: #c7dbf2;
 }
 
-input:focus, button:focus, select:focus {
+input:focus, button:focus, select:focus, p:focus {
   outline: none;
 }
 
@@ -334,6 +334,9 @@ h2 {
 
 .unchecked, .checked {
   cursor: pointer;
+  vertical-align: top;
+  top: 25px;
+  position: relative;
 }
 
 .done {
@@ -356,6 +359,7 @@ h2 {
 
 .heading {
   font-size: 2.2rem;
+  white-space: nowrap
 }
 
 .select-container {
@@ -410,6 +414,9 @@ input:checked+p {
   font-weight: 200;
   color: #00204a;
   border: none;
+  display: inline-block;
+  width: 260px;
+  text-align: left;
 }
 
 form.item {
@@ -437,7 +444,7 @@ form.item {
 
 .newTask {
   text-align: center;
-  height: 60px;
+  height: 20px;
   top: 10px;
   border: none;
   background: transparent;
@@ -452,18 +459,26 @@ form.item {
 }
 
 .fa-trash-alt {
-  display: none;
+  visibility: hidden;
   font-size: 12px;
   cursor: pointer;
 }
 
 .task-item:hover .fa-trash-alt {
+  visibility: visible;
   display: block;
 }
 
 ::placeholder {
   color: grey;
   opacity: 1;
+  font-family: 'Helvetica';
+}
+
+textarea {
+  font-family: 'Helvetica';
+  resize: none;
+  padding-top: 20px;
 }
 
 footer {

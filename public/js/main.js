@@ -183,8 +183,7 @@ $(document).ready(function() {
           html = `<div class="item task-item">
             <form class="task">
               ${checkbox}
-              <input type="text" class="edit-task" value="${task.description}" data-id="${task._id}">
-              <button type="submit" style="visibility: hidden"></button>
+              <p class="edit-task" contenteditable="true" data-id="${task._id}">${task.description}</p>
             </form>
             <i class="far fa-trash-alt"></i>
           </div>
@@ -216,33 +215,33 @@ $('.newItem').on('submit', (e) => {
       html = `<div class="item task-item">
           <form class="task">
             <span class="far fa-square unchecked"></span>
-            <input type="text" class="edit-task" value="${tasks[(tasks.length)-1].description}" data-id="${tasks[(tasks.length)-1]._id}">
-            <button type="submit" style="visibility: hidden"></button>
+            <p contenteditable="true" type="text" class="edit-task" data-id="${tasks[(tasks.length)-1]._id}">${tasks[(tasks.length)-1].description}</p>
           </form>
           <i class="far fa-trash-alt"></i>
         </div>
        `;
       $('.newItem').before(html);
-      $('.newTask').val('');
+      $('.newTask').val('').css('height', '40px');
       }
     );
   });
 });
 
 // edit task
-$(document).on('submit', '.task', function (e) {
+$(document).on('keypress', '.task', function (e) {
   e.preventDefault();
-  fetch(`/tasks/${$(e.target).find('.edit-task').data('id')}`, {
-    method: 'PATCH',
-    headers: {
-    'Content-Type': 'application/json'
-  },
-    body: JSON.stringify({
-      description: $(e.target).find('.edit-task').val()
-    })
-  }).then((response) => {
-
-  });
+  if (e.keyCode == 13) {
+    fetch(`/tasks/${$(e.target).data('id')}`, {
+      method: 'PATCH',
+      headers: {
+      'Content-Type': 'application/json'
+    },
+      body: JSON.stringify({
+        description: $(e.target).text()
+      })
+    }).then((response) => {
+    });
+    }
 });
 
 // check task
@@ -329,9 +328,8 @@ $('.count').on('change', (e) => {
         html = `<div class="item task-item">
           <form class="task">
             ${checkbox}
-            <input type="text" class="edit-task" value="${task.description}" data-id="${task._id}">
-            <button type="submit" style="visibility: hidden"></button>
-          </form>
+            <p contenteditable="true" class="edit-task" data-id="${task._id}">${task.description}</p>
+          /form>
           <i class="far fa-trash-alt"></i>
         </div>
        `;
@@ -366,9 +364,8 @@ $('.sort').on('change', (e) => {
         html = `<div class="item task-item">
           <form class="task">
             ${checkbox}
-            <input type="text" class="edit-task" value="${task.description}" data-id="${task._id}">
-            <button type="submit" style="visibility: hidden"></button>
-          </form>
+            <p contenteditable="true" class="edit-task" data-id="${task._id}">${task.description}</p>
+          /form>
           <i class="far fa-trash-alt"></i>
         </div>
        `;
@@ -403,9 +400,8 @@ $('.filter').on('change', (e) => {
         html = `<div class="item task-item">
           <form class="task">
             ${checkbox}
-            <input type="text" class="edit-task" value="${task.description}" data-id="${task._id}">
-            <button type="submit" style="visibility: hidden"></button>
-          </form>
+            <p contenteditable="true" class="edit-task" data-id="${task._id}">${task.description}</p>
+          /form>
           <i class="far fa-trash-alt"></i>
         </div>
        `;
@@ -435,4 +431,12 @@ $(document).on('click', '.fa-trash-alt', (e) => {
   }).then((response) => {
     $(e.target).parent().remove();
   });
+});
+
+// autosize textarea
+$('textarea').each(function () {
+  this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+}).on('input', function () {
+  this.style.height = 'auto';
+  this.style.height = (this.scrollHeight) + 'px';
 });
