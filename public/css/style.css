@@ -489,8 +489,67 @@ footer {
   padding-bottom: 20px;
 }
 
-@media only screen and (max-width: 900px) {
-  body {
-    font-size: 30px;
+@media (max-width: 450px) {
+  .logo a {
+    font-size: 2rem;
+  }
+
+  .hero-cont h1 {
+    font-size: 2rem;
+  }
+
+  .box, .item {
+    max-width: 300px;
+  }
+
+  .newItem {
+    max-width: 270px;
+  }
+
+  .edit-task {
+    width: 180px;
+  }
+
+  .addTask {
+    height: 40px;
+    width: 70px;
+    padding: 0 0 5px 0;
+  }
+
+  .login-container, .signup-container {
+    width: 300px;
+  }
+
+  .form-signin {
+    width: 250px;
+  }
+
+  .h1, .heading {
+    font-size: 1.5rem;
+  }
+
+  label {
+    left: 5px;
+  }
+
+  .nav {
+    padding-right: 20px;
+  }
+
+  .select-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .select {
+    padding-right: 0;
+  }
+
+  .select:last-of-type {
+    display: none;
+  }
+
+  .select p {
+    margin: 5px;
   }
 }

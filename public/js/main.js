@@ -5,7 +5,19 @@ window.onload = function() {
   Particles.init({
     selector: '.background',
     connectParticles: true,
-    color: '#f53676'
+    color: '#f53676',
+    responsive: [
+    {breakpoint: 700,
+      options: {
+        maxParticles: 100,
+        }
+      },
+      {breakpoint: 500,
+      options: {
+        maxParticles: 50,
+      }
+    }
+    ]
   });
 };
 
@@ -229,8 +241,8 @@ $('.newItem').on('submit', (e) => {
 
 // edit task
 $(document).on('keypress', '.task', function (e) {
-  e.preventDefault();
   if (e.keyCode == 13) {
+    e.preventDefault();
     fetch(`/tasks/${$(e.target).data('id')}`, {
       method: 'PATCH',
       headers: {
